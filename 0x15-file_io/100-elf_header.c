@@ -146,6 +146,8 @@ void print_version(unsigned char *e_ident)
 /**
  * print_osabi - Prints the OS/ABI of an ELF header.
  * @e_ident: A pointer to an array containing the ELF version.
+ *
+ * Description: ELF file OS/ABI.
  */
 void print_osabi(unsigned char *e_ident)
 {
@@ -191,6 +193,8 @@ void print_osabi(unsigned char *e_ident)
 /**
  * print_abi - Prints the ABI version of an ELF header.
  * @e_ident: A pointer to an array containing the ELF ABI version.
+ *
+ * Description: ELF ABI file contains the version.
  */
 void print_abi(unsigned char *e_ident)
 {
@@ -202,6 +206,8 @@ void print_abi(unsigned char *e_ident)
  * print_type - Prints the type of an ELF header.
  * @e_type: The ELF type.
  * @e_ident: A pointer to an array containing the ELF class.
+ *
+ * Description: Chects for the type of ELF file.
  */
 void print_type(unsigned int e_type, unsigned char *e_ident)
 {
@@ -236,6 +242,9 @@ void print_type(unsigned int e_type, unsigned char *e_ident)
  * print_entry - Prints the entry point of an ELF header.
  * @e_entry: The address of the ELF entry point.
  * @e_ident: A pointer to an array containing the ELF class.
+ *
+ * Description: identifies the entry point of the ELF file and
+ * prints the address.
  */
 void print_entry(unsigned long int e_entry, unsigned char *e_ident)
 {

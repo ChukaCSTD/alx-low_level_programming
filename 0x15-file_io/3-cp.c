@@ -2,12 +2,16 @@
 #include <stdio.h>
 
 /**
- * error_file - checks if files can be opened.
- * @file_from: file_from.
- * @file_to: file_to.
- * @argv: arguments vector.
- * Return: no return.
- */
+ * error_file - checks if files can be opened and does not contain errors.
+ *
+ * @file_from: file_from descriptor.
+ * 
+ * @file_to: file_to descriptor.
+ * 
+ * @argv: the arguments vector.
+ *
+ * Return: nothing to return.
+ **/
 void error_file(int file_from, int file_to, char *argv[])
 {
 	if (file_from == -1)
@@ -23,15 +27,18 @@ void error_file(int file_from, int file_to, char *argv[])
 }
 
 /**
- * main - check the code for school students.
+ * main - mian function of arguments.
+ *
  * @argc: number of arguments.
+ *
  * @argv: arguments vector.
+ *
  * Return: Always 0.
- */
+ **/
 int main(int argc, char *argv[])
 {
 	int file_from, file_to, err_close;
-	ssize_t n_chars, n_write;
+	ssize_t nchars, nwr;
 	char buf[1024];
 
 	if (argc != 3)
@@ -45,27 +52,27 @@ int main(int argc, char *argv[])
 	error_file(file_from, file_to, argv);
 
 	nchars = 1024;
-	while (n_chars == 1024)
+	while (nchars == 1024)
 	{
-		n_chars = read(file_from, buf, 1024);
-		if (n_chars == -1)
+		nchars = read(file_from, buf, 1024);
+		if (nchars == -1)
 			error_file(-1, 0, argv);
-		n_write = write(file_to, buf, nchars);
-		if (n_write == -1)
+		nwr = write(file_to, buf, nchars);
+		if (nwr == -1)
 			error_file(0, -1, argv);
 	}
 
 	err_close = close(file_from);
 	if (err_close == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't close r_file %d\n", file_from);
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", file_from);
 		exit(100);
 	}
 
 	err_close = close(file_to);
 	if (err_close == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't close r_file %d\n", file_from);
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", file_from);
 		exit(100);
 	}
 	return (0);

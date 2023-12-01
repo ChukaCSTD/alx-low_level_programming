@@ -1,3 +1,9 @@
+/*
+ * File: 100-elf_header.c
+ *
+ * Auth: Chuka Ozoadibe
+ */
+
 #include <elf.h>
 #include <sys/types.h>
 #include <sys/stat.h>

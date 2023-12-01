@@ -2,21 +2,22 @@
 #include <stdio.h>
 
 /**
- * error_file - checks if files can be opened and does not contain errors.
+ * error_file - check if the file opens and handles errors
  *
- * @file_from: file_from descriptor.
- * 
- * @file_to: file_to descriptor.
- * 
- * @argv: the arguments vector.
+ * @file_from: file to copy from
  *
- * Return: nothing to return.
- **/
+ * @file_to: the destination file to copy into
+ *
+ * @argv: arguments vector
+ *
+ * Return: nothing to return
+ */
+
 void error_file(int file_from, int file_to, char *argv[])
 {
 	if (file_from == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
+		dprintf(STDERR_FILENO, "Error: Cant read from file %s\n", argv[1]);
 		exit(98);
 	}
 	if (file_to == -1)
@@ -27,19 +28,20 @@ void error_file(int file_from, int file_to, char *argv[])
 }
 
 /**
- * main - mian function of arguments.
+ * main - copies the content of a file fromone to another
  *
- * @argc: number of arguments.
+ * @argc: number of arguments
  *
- * @argv: arguments vector.
+ * @argv: argument vector
  *
- * Return: Always 0.
- **/
+ * Return: Always 0 on success
+ */
+
 int main(int argc, char *argv[])
 {
 	int file_from, file_to, err_close;
-	ssize_t nchars, nwr;
-	char buf[1024];
+	ssize_t n_char, nwr;
+	char buffer[1024];
 
 	if (argc != 3)
 	{
@@ -51,28 +53,26 @@ int main(int argc, char *argv[])
 	file_to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC | O_APPEND, 0664);
 	error_file(file_from, file_to, argv);
 
-	nchars = 1024;
-	while (nchars == 1024)
+	n_char = 1024;
+	while (n_char == 1024)
 	{
-		nchars = read(file_from, buf, 1024);
-		if (nchars == -1)
+		n_char = read(file_from, buffer, 1024);
+		if (n_char == -1)
 			error_file(-1, 0, argv);
-		nwr = write(file_to, buf, nchars);
+		nwr = write(file_to, buffer, n_char);
 		if (nwr == -1)
 			error_file(0, -1, argv);
 	}
-
 	err_close = close(file_from);
 	if (err_close == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", file_from);
 		exit(100);
 	}
-
 	err_close = close(file_to);
 	if (err_close == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", file_from);
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", file_to);
 		exit(100);
 	}
 	return (0);

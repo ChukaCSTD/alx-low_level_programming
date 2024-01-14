@@ -8,7 +8,7 @@
 size_t print_dlistint(const dlistint_t *h)
 {
 	size_t i;
-	const dlistint_t *j; //where the value is stored
+	const dlistint_t *j;
 
 	if (h == NULL)
 		return (0);
